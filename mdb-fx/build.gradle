@@ -26,5 +26,4 @@ dependencies {
     implementation project(':obp3-object-browser-api')
     implementation project(':obp3-object-browser-base')
     implementation project(':mdb-semantics')
-    implementation project(':soup-fx')
 }
