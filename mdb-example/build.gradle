@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'fr.ensta'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    modularity.inferModulePath = true
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(23))
+    }
+}
+
+compileJava {
+    options.compilerArgs.add('--enable-preview')
+}
+
+compileTestJava {
+    options.compilerArgs.add('--enable-preview')
+}
+
+test {
+    jvmArgs += '--enable-preview'
+}
+
+javafx {
+    version = "23"
+    modules = [ 'javafx.controls' ]
+}
+
+dependencies {
+    implementation project(':mdb-semantics')
+    implementation project(':mdb-fx')
+
+    implementation project(':soup-core')
+    implementation project(':soup-fx')
+
+    implementation project(':obp3-object-browser-api')
+    implementation project(':obp3-object-browser-base')
+}
+
+application {
+    mainModule = 'obp.mdb.fx.example'
+    mainClass = "obp3.mdb.fx.example.ObjectBrowser"
+    applicationDefaultJvmArgs = [
+            '--enable-preview',
+            '--add-modules', 'obp.mdb.fx.example',
+            '--add-opens', 'java.base/java.lang=obp.fx.objectbrowser',
+            '--add-opens', 'java.base/java.util=obp.fx.objectbrowser'
+    ]
+}
+
